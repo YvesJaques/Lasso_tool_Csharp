@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using System.Xml;
@@ -75,32 +76,50 @@ namespace Implementacao_Csharp_XML
                 if (point.Y > upperLimit.Y) upperLimit = point;
                 if (point.Y < bottomLimit.Y) bottomLimit = point;
             }
-            //leftLimit = PointToScreen(leftLimit);
-            //rightLimit = PointToScreen(rightLimit);
-            //upperLimit = PointToScreen(upperLimit);
-            //bottomLimit = PointToScreen(bottomLimit);
+
+            Point[] arrayPontos = listaPontosSilueta.ToArray();
+
+            pnlCamCapture.Invalidate();
+            pnlCamCapture.Refresh();
             Rectangle rectangle = new Rectangle(leftLimit.X, upperLimit.Y, rightLimit.X - leftLimit.X, upperLimit.Y - bottomLimit.Y);
 
-            Graphics g = pnlCamCapture.CreateGraphics();
+            Graphics pnlGraphics = pnlCamCapture.CreateGraphics();
 
-            Bitmap bmp = new Bitmap(rectangle.Width, rectangle.Height);
+            //pnlGraphics = Graphics.FromImage(bmp);
 
-            g = Graphics.FromImage(bmp);
+            //Point controlZeroPoint = pnlCamCapture.PointToScreen(new Point(0, 0));
 
-            Point controlZeroPoint = pnlCamCapture.PointToScreen(new Point(0, 0));
+            //pnlGraphics.CopyFromScreen(controlZeroPoint.X + leftLimit.X, controlZeroPoint.Y + bottomLimit.Y, 0, 0, rectangle.Size);
+            Bitmap bmp1 = new Bitmap(rectangle.Width, rectangle.Height);
 
-            g.CopyFromScreen(controlZeroPoint.X + leftLimit.X, controlZeroPoint.Y + bottomLimit.Y, 0, 0, rectangle.Size);
+            Point[] contour = new Point[] { new Point(0, 0), new Point(50, 0), new Point(50, 50) };
 
-            //pnlCamCapture.DrawToBitmap(bmp, boundsOfShot);
+            GraphicsPath gp = new GraphicsPath();
+            gp.AddPolygon(arrayPontos);
+            gp.CloseAllFigures();
 
             SizeMoveablePicBox captura = new SizeMoveablePicBox();
+            //gp.AddPolygon(arrayPontos);
+            //captura.Region = new Region(gp);
+            //captura.Invalidate();
+            using (Bitmap bmp = new Bitmap(rectangle.Width, rectangle.Height))
+            using (Graphics G = Graphics.FromImage(bmp1))
+            {
+                pnlGraphics.Clip = new Region(gp);
+                pnlGraphics.DrawImage(bmp, 0, 0);
+                captura.Image = bmp1;
+            }
+
             captura.Size = rectangle.Size;
-            captura.Image = bmp;
+            captura.Region = new Region(gp);
             captura.Refresh();
             captura.Location = e.Location;
+            captura.Refresh();
 
-            //    //adição do picbox ao painel da imagem
             pnlCamCapture.Controls.Add(captura);
+            captura.BringToFront();
+            captura.BorderStyle = BorderStyle.FixedSingle;
+
 
         }
     }//public partial class FormPrincipal : Form

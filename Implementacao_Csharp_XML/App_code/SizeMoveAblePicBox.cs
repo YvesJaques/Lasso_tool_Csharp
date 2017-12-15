@@ -1,28 +1,33 @@
 ﻿//classe de controle herdeira de PictureBox
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 
 class SizeMoveablePicBox : PictureBox
 {
+    protected override void OnPaint(PaintEventArgs pe)
+    {
+        base.OnPaint(pe);
+    }
+
     public SizeMoveablePicBox()
-    {        
+    {
         //this.ResizeRedraw = true;
         //this.BackColor = Color.Transparent;
-        this.BorderStyle = BorderStyle.None;
+        this.BorderStyle = BorderStyle.FixedSingle;
         //this.Padding = new Padding(4);
         this.Cursor = Cursors.Hand;
         this.Refresh();
         //adição de event handlers para movimentação da picBox com o botão do meio do mouse
         this.MouseDown += new MouseEventHandler(SizeMoveAblePicBox_MouseDown);
         this.MouseMove += new MouseEventHandler(SizeMoveAblePicBox_MouseMove);
-
     }
 
     //ponto auxiliar de referencia para reposicionamento da picbox
     Point picBoxMouseDownLocation;
-    
+
     //identificação do clique e arraste do mouse na pictureBox
     public void SizeMoveAblePicBox_MouseDown(object sender, MouseEventArgs e)
     {
@@ -65,36 +70,33 @@ class SizeMoveablePicBox : PictureBox
     //    }
     //}
 
-    protected override void WndProc(ref Message m)
-    {
-        base.WndProc(ref m);
+    //protected override void WndProc(ref Message m)
+    //{
+    //    base.WndProc(ref m);
 
-        if (m.Msg == 0x84)
-        {  // Trap WM_NCHITTEST
-            var pos = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
-            if (pos.X >= this.ClientSize.Width - grab && pos.Y >= this.ClientSize.Height - grab)
-                m.Result = new IntPtr(17);  // HT_BOTTOMRIGHT
-        }
-    }
+    //    if (m.Msg == 0x84)
+    //    {  // Trap WM_NCHITTEST
+    //        var pos = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
+    //        if (pos.X >= this.ClientSize.Width - grab && pos.Y >= this.ClientSize.Height - grab)
+    //            m.Result = new IntPtr(17);  // HT_BOTTOMRIGHT
+    //    }
+    //}
 
     /*variavel de tamanho em pixel da borda para referencia ao click na picture box para movimentação,
     identificação da área útil de clique e arraste*/
-    private const int grab = 16;
+    //private const int grab = 16;
 
     //override da função de encapsulamento de informaçãoes quando da criação do controle para exibição da borda diferente
-    protected override CreateParams CreateParams
-    {
-        get
-        {
-            var cp = base.CreateParams;
-            //cp.Style |= 0x840000;  // Turn on WS_BORDER + WS_THICKFRAME            
-            //cp.Style |= 0x20000;
-            //cp.Style |= 0;
-            return cp;
-        }
-    }
-
-
-
+    //protected override CreateParams CreateParams
+    //{
+    //    get
+    //    {
+    //        var cp = base.CreateParams;
+    //        //cp.Style |= 0x840000;  // Turn on WS_BORDER + WS_THICKFRAME            
+    //        //cp.Style |= 0x20000;
+    //        //cp.Style |= 0;
+    //        return cp;
+    //    }
+    //}
 
 }
