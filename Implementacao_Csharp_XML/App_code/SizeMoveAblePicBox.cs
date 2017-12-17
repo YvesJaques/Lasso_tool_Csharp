@@ -15,9 +15,8 @@ class SizeMoveablePicBox : PictureBox
     public SizeMoveablePicBox()
     {
         //this.ResizeRedraw = true;
-        //this.BackColor = Color.Transparent;
-        this.BorderStyle = BorderStyle.FixedSingle;
-        //this.Padding = new Padding(4);
+        this.BackColor = Color.Transparent;
+        this.BorderStyle = BorderStyle.FixedSingle;        
         this.Cursor = Cursors.Hand;
         this.Refresh();
         //adição de event handlers para movimentação da picBox com o botão do meio do mouse

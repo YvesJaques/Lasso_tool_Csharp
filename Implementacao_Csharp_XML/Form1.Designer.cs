@@ -60,7 +60,6 @@
             this.pnlCamCapture.Name = "pnlCamCapture";
             this.pnlCamCapture.Size = new System.Drawing.Size(694, 402);
             this.pnlCamCapture.TabIndex = 0;
-            this.pnlCamCapture.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlCamCapture_MouseClick);
             this.pnlCamCapture.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlCamCapture_MouseDown);
             this.pnlCamCapture.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlCamCapture_MouseMove);
             this.pnlCamCapture.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlCamCapture_MouseUp);
@@ -69,7 +68,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(718, 426);
             this.Controls.Add(this.pnlCamCapture);
             this.Name = "FormPrincipal";
