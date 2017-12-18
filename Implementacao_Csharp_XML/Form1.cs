@@ -63,35 +63,14 @@ namespace Implementacao_Csharp_XML
             int rectTop = Convert.ToInt32(gp.GetBounds().Top);
             int rectBottom = Convert.ToInt32(gp.GetBounds().Bottom);
             Rectangle rectangle = new Rectangle(new Point(rectTop, rectBottom), new Size(rectWidth, rectHeight));
-            
-            Bitmap bmp = new Bitmap(pnlCamCapture.BackgroundImage);
-            Bitmap captura= bmp.Clone(rectangleF, pnlCamCapture.BackgroundImage.PixelFormat);
-            bmp.Dispose();
-            Graphics picBoxGraphics = picBox.CreateGraphics();
 
-            //Image img = new Image;
-
-            using (Graphics g = Graphics.FromImage(captura))
-            {
-                g.DrawImage(bmp, 0, 0);
-                g.Clip = new Region(gp);
-            }
-
-            pnlCamCapture.DrawToBitmap(bmp, rectangle);
-            picBox.Size = bmp.Size;
-            picBox.Location = e.Location;
-            //picBox.Image = bmp;
-            //picBoxGraphics.Clear(picBox.BackColor);
-            picBoxGraphics.FillPath(new TextureBrush(captura), gp);
-
-            //g.Clear(pnlCamCapture.BackColor);
-            //g.FillPath(new TextureBrush(pnlCamCapture.BackgroundImage), gp);
-
-            picBox.Invalidate();
-
-            picBox.BackgroundImage = captura;
+            Bitmap bmp = new Bitmap(pnlCamCapture.BackgroundImage.Width, pnlCamCapture.BackgroundImage.Height);
+            Graphics bg = Graphics.FromImage(bmp);
+            bg.Clip = new Region(gp);
+            bg.DrawImage(pnlCamCapture.BackgroundImage, 0, 0);
+            bmp.Save(@"C:\Users\Yves\Desktop\test.bmp");
+            picBox.Image = bmp;
             pnlCamCapture.Controls.Add(picBox);
-
 
         }
 
