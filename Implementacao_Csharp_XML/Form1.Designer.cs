@@ -54,8 +54,10 @@
             this.pnlCamCapture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlCamCapture.AutoSize = true;
             this.pnlCamCapture.BackgroundImage = global::Implementacao_Csharp_XML.Properties.Resources.image;
-            this.pnlCamCapture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlCamCapture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pnlCamCapture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCamCapture.Location = new System.Drawing.Point(12, 12);
             this.pnlCamCapture.Name = "pnlCamCapture";
             this.pnlCamCapture.Size = new System.Drawing.Size(694, 402);
@@ -74,6 +76,7 @@
             this.Name = "FormPrincipal";
             this.Text = "Visualizador de equipamentos";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
