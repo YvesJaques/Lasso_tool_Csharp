@@ -5,13 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lasso_tool", "Implementacao_Csharp_XML\Lasso_tool.csproj", "{CCDF3A07-BE08-4E60-BE25-F5E76443040F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML_files", "XML_files", "{F1966514-2288-417D-9957-8FE82B06A640}"
-	ProjectSection(SolutionItems) = preProject
-		complex_xml.xml = complex_xml.xml
-		reader_exemplo.cs = reader_exemplo.cs
-		writer_exemplo.cs = writer_exemplo.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

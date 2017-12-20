@@ -87,7 +87,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\transparent_image.png" />
     <None Include="Resources\hqdefault.jpg" />
     <None Include="Resources\image2.gif" />
     <None Include="Resources\image1.gif" />
