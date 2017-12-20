@@ -7,16 +7,17 @@ using System.Windows.Forms;
 
 class SizeMoveablePicBox : PictureBox
 {
-    protected override void OnPaint(PaintEventArgs pe)
-    {
-        base.OnPaint(pe);
-    }
+    //protected override void OnPaint(PaintEventArgs pe)
+    //{
+    //    base.OnPaint(pe);
+    //}
 
     public SizeMoveablePicBox()
     {
         //this.ResizeRedraw = true;
         this.BackColor = Color.Transparent;
-        this.BorderStyle = BorderStyle.FixedSingle;        
+        this.BorderStyle = BorderStyle.None;
+        AutoSize = true;
         this.Cursor = Cursors.Hand;
         this.Refresh();
         //adição de event handlers para movimentação da picBox com o botão do meio do mouse
