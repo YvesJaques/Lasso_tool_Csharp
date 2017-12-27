@@ -68,9 +68,16 @@ namespace Implementacao_Csharp_XML
             pnlCamCapture.Controls.Add(picBox);
         }
 
+        private void btnCarregarImagem_Click(object sender, EventArgs e)
+        {
+            FileDialog fd = new OpenFileDialog();
+            fd.ShowDialog();
 
+            if (string.IsNullOrEmpty(fd.FileName)) return;
 
-
+            pnlCamCapture.BackgroundImage = Image.FromFile(fd.FileName);
+            g = pnlCamCapture.CreateGraphics();
+        }
     }//public partial class FormPrincipal : Form
 
 

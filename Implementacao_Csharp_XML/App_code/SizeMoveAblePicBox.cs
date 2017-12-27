@@ -23,7 +23,26 @@ class SizeMoveablePicBox : PictureBox
         //adição de event handlers para movimentação da picBox com o botão do meio do mouse
         this.MouseDown += new MouseEventHandler(SizeMoveAblePicBox_MouseDown);
         this.MouseMove += new MouseEventHandler(SizeMoveAblePicBox_MouseMove);
+        this.ContextMenu = componentContxtMenu;
+        componentContxtMenu.MenuItems.Add(mnuItemDelete);
+        mnuItemDelete.Click += new EventHandler(mnuItemDelete_Click);
     }
+
+    private void mnuItemDelete_Click(object sender, EventArgs e)
+    {
+        this.Dispose();
+        
+    }
+
+    public ContextMenu componentContxtMenu = new ContextMenu();
+
+    //definição de items do menu de contexto    
+    private MenuItem mnuItemDelete = new MenuItem()
+    {
+        Text = "Deletar"
+
+    };
+    //mnuItemDelete.Text = "Deletar";
 
     //ponto auxiliar de referencia para reposicionamento da picbox
     Point picBoxMouseDownLocation;
