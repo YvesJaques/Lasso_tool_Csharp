@@ -12,12 +12,13 @@ class SizeMoveablePicBox : PictureBox
     //    base.OnPaint(pe);
     //}
 
-    public SizeMoveablePicBox()
+    public SizeMoveablePicBox(Point location, Size size)
     {
         //this.ResizeRedraw = true;
         this.BackColor = Color.Transparent;
         this.BorderStyle = BorderStyle.None;
-        AutoSize = true;
+        //AutoSize = true;
+        this.SizeMode = PictureBoxSizeMode.StretchImage;
         this.Cursor = Cursors.Hand;
         this.Refresh();
         //adição de event handlers para movimentação da picBox com o botão do meio do mouse
@@ -25,16 +26,16 @@ class SizeMoveablePicBox : PictureBox
         this.MouseMove += new MouseEventHandler(SizeMoveAblePicBox_MouseMove);
         this.ContextMenu = componentContxtMenu;
         componentContxtMenu.MenuItems.Add(mnuItemDelete);
+        componentContxtMenu.MenuItems.Add(mnuItemReset);
         mnuItemDelete.Click += new EventHandler(mnuItemDelete_Click);
+        mnuItemReset.Click += new EventHandler(mnuItemReset_Click);
+        this.Move += new EventHandler(SizeMoveAblePicBox_Move);
+        this.Location = location;
+        initialLocation = location;
+        initialWidth = size.Width;
+        initialHeight = size.Height;
+        initialSize = size;
     }
-
-    private void mnuItemDelete_Click(object sender, EventArgs e)
-    {
-        this.Dispose();
-        
-    }
-
-    public ContextMenu componentContxtMenu = new ContextMenu();
 
     //definição de items do menu de contexto    
     private MenuItem mnuItemDelete = new MenuItem()
@@ -42,7 +43,54 @@ class SizeMoveablePicBox : PictureBox
         Text = "Deletar"
 
     };
-    //mnuItemDelete.Text = "Deletar";
+
+
+
+    private MenuItem mnuItemReset = new MenuItem()
+    {
+        Text = "Resetar"
+
+    };
+
+    private void mnuItemDelete_Click(object sender, EventArgs e)
+    {
+        this.Dispose();
+
+    }
+
+    private void mnuItemReset_Click(object sender, EventArgs e)
+    {
+        this.Size = initialSize;
+        this.Location = initialLocation;
+    }
+
+    public Point initialLocation;
+    public int initialWidth;
+    public int initialHeight;
+    public Size initialSize;
+
+    public void SizeMoveAblePicBox_Move(object sender, EventArgs e)
+    {
+        if (this.Location.Y == initialLocation.Y) this.Size = initialSize;
+        else if (this.Location.Y > initialLocation.Y)
+        {
+            int sizeIncrement = (this.Location.Y - initialLocation.Y);
+            this.Width = initialWidth + sizeIncrement;
+            this.Height = initialHeight + sizeIncrement;
+        }
+        else if (this.Location.Y < initialLocation.Y)
+        {
+            int sizeDecrement = (initialLocation.Y - this.Location.Y);
+            this.Width = initialWidth - sizeDecrement;
+            this.Height = initialHeight - sizeDecrement;
+        }
+
+
+    }
+
+    public ContextMenu componentContxtMenu = new ContextMenu();
+
+
 
     //ponto auxiliar de referencia para reposicionamento da picbox
     Point picBoxMouseDownLocation;
