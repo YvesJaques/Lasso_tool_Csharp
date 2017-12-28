@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Implementacao_Csharp_XML;
 
 
 class SizeMoveablePicBox : PictureBox
@@ -74,13 +75,13 @@ class SizeMoveablePicBox : PictureBox
         if (this.Location.Y == initialLocation.Y) this.Size = initialSize;
         else if (this.Location.Y > initialLocation.Y)
         {
-            int sizeIncrement = (this.Location.Y - initialLocation.Y);
+            int sizeIncrement = (this.Location.Y - initialLocation.Y) * Config.fatorAumento;
             this.Width = initialWidth + sizeIncrement;
             this.Height = initialHeight + sizeIncrement;
         }
         else if (this.Location.Y < initialLocation.Y)
         {
-            int sizeDecrement = (initialLocation.Y - this.Location.Y);
+            int sizeDecrement = (initialLocation.Y - this.Location.Y) * Config.fatorAumento;
             this.Width = initialWidth - sizeDecrement;
             this.Height = initialHeight - sizeDecrement;
         }

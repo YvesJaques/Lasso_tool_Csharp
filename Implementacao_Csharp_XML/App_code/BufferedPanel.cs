@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Implementacao_Csharp_XML.App_code
+namespace Implementacao_Csharp_XML
 {
     class BufferedPanel : Panel
     {

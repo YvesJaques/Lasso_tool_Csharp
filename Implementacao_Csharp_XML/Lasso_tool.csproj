@@ -49,6 +49,7 @@
     <Compile Include="App_code\BufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="App_code\Config.cs" />
     <Compile Include="App_code\SizeMoveAblePicBox.cs">
       <SubType>Component</SubType>
     </Compile>

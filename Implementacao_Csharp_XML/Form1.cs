@@ -77,7 +77,7 @@ namespace Implementacao_Csharp_XML
                 //picBox.Location = e.Location;
                 //picBox.Location = rectangle.Location;
                 picBox.Image = bmpCrop;
-                //picBox.Size = rectangle.Size;
+                picBox.Size = rectangle.Size;
                 pnlCamCapture.Controls.Add(picBox);
             }
         }
@@ -91,6 +91,11 @@ namespace Implementacao_Csharp_XML
 
             pnlCamCapture.BackgroundImage = Image.FromFile(fd.FileName);
             g = pnlCamCapture.CreateGraphics();
+        }
+
+        private void numUDAumentoSilueta_ValueChanged(object sender, EventArgs e)
+        {
+            Config.fatorAumento = (int)numUDAumentoSilueta.Value;
         }
     }//public partial class FormPrincipal : Form
 
