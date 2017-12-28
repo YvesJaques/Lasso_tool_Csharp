@@ -12,6 +12,10 @@ class SizeMoveablePicBox : PictureBox
     //{
     //    base.OnPaint(pe);
     //}
+    public Point initialLocation;
+    public int initialWidth;
+    public int initialHeight;
+    public Size initialSize;
 
     public SizeMoveablePicBox(Point location, Size size)
     {
@@ -21,17 +25,21 @@ class SizeMoveablePicBox : PictureBox
         //AutoSize = true;
         this.SizeMode = PictureBoxSizeMode.StretchImage;
         this.Cursor = Cursors.Hand;
+        this.Location = location;
+        this.Size = size;
         this.Refresh();
+        
         //adição de event handlers para movimentação da picBox com o botão do meio do mouse
         this.MouseDown += new MouseEventHandler(SizeMoveAblePicBox_MouseDown);
         this.MouseMove += new MouseEventHandler(SizeMoveAblePicBox_MouseMove);
+        this.Move += new EventHandler(SizeMoveAblePicBox_Move);
+
         this.ContextMenu = componentContxtMenu;
         componentContxtMenu.MenuItems.Add(mnuItemDelete);
         componentContxtMenu.MenuItems.Add(mnuItemReset);
         mnuItemDelete.Click += new EventHandler(mnuItemDelete_Click);
         mnuItemReset.Click += new EventHandler(mnuItemReset_Click);
-        this.Move += new EventHandler(SizeMoveAblePicBox_Move);
-        this.Location = location;
+
         initialLocation = location;
         initialWidth = size.Width;
         initialHeight = size.Height;
@@ -42,21 +50,16 @@ class SizeMoveablePicBox : PictureBox
     private MenuItem mnuItemDelete = new MenuItem()
     {
         Text = "Deletar"
-
     };
-
-
 
     private MenuItem mnuItemReset = new MenuItem()
     {
         Text = "Resetar"
-
     };
 
     private void mnuItemDelete_Click(object sender, EventArgs e)
     {
         this.Dispose();
-
     }
 
     private void mnuItemReset_Click(object sender, EventArgs e)
@@ -65,28 +68,22 @@ class SizeMoveablePicBox : PictureBox
         this.Location = initialLocation;
     }
 
-    public Point initialLocation;
-    public int initialWidth;
-    public int initialHeight;
-    public Size initialSize;
-
+    //resize do pictureBox conforme descloamento no eixo Y
     public void SizeMoveAblePicBox_Move(object sender, EventArgs e)
     {
-        if (this.Location.Y == initialLocation.Y) this.Size = initialSize;
+        if (this.Location.Y == initialLocation.Y) this.Size = initialSize; //posição inicial, reset do tamanho
         else if (this.Location.Y > initialLocation.Y)
         {
-            int sizeIncrement = (this.Location.Y - initialLocation.Y) * Config.fatorAumento;
+            int sizeIncrement = (this.Location.Y - initialLocation.Y) * Config.fatorAumento / 100;
             this.Width = initialWidth + sizeIncrement;
             this.Height = initialHeight + sizeIncrement;
         }
         else if (this.Location.Y < initialLocation.Y)
         {
-            int sizeDecrement = (initialLocation.Y - this.Location.Y) * Config.fatorAumento;
+            int sizeDecrement = (initialLocation.Y - this.Location.Y) * Config.fatorAumento / 100;
             this.Width = initialWidth - sizeDecrement;
             this.Height = initialHeight - sizeDecrement;
         }
-
-
     }
 
     public ContextMenu componentContxtMenu = new ContextMenu();

@@ -51,8 +51,6 @@ namespace Implementacao_Csharp_XML
                 pnlCamCapture.BackColor = Color.Transparent;
                 pnlCamCapture.Refresh();
 
-
-
                 Rectangle rectangle = Rectangle.Truncate(gp.GetBounds());
 
                 picBox = new SizeMoveablePicBox(rectangle.Location, rectangle.Size);
@@ -76,8 +74,7 @@ namespace Implementacao_Csharp_XML
 
                 //picBox.Location = e.Location;
                 //picBox.Location = rectangle.Location;
-                picBox.Image = bmpCrop;
-                picBox.Size = rectangle.Size;
+                picBox.Image = bmpCrop;                
                 pnlCamCapture.Controls.Add(picBox);
             }
         }
