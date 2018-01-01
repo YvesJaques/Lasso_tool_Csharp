@@ -92,9 +92,6 @@
             // 
             // pnlCamCapture
             // 
-            this.pnlCamCapture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlCamCapture.AutoSize = true;
             this.pnlCamCapture.BackgroundImage = global::Implementacao_Csharp_XML.Properties.Resources.image;
             this.pnlCamCapture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
