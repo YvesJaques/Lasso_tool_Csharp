@@ -16,6 +16,7 @@ class SizeMoveablePicBox : PictureBox
     public int initialWidth;
     public int initialHeight;
     public Size initialSize;
+    public ContextMenu componentContxtMenu = new ContextMenu();
 
     public SizeMoveablePicBox(Point location, Size size)
     {
@@ -45,7 +46,7 @@ class SizeMoveablePicBox : PictureBox
         initialHeight = size.Height;
         initialSize = size;
 
-        old = location;
+
     }
 
     //definição de items do menu de contexto    
@@ -70,60 +71,32 @@ class SizeMoveablePicBox : PictureBox
         this.Location = initialLocation;
     }
 
-    Point old;
-
     //resize do pictureBox conforme descloamento no eixo Y
     public void SizeMoveAblePicBox_Move(object sender, EventArgs e)
     {
-        if (this.Location.Y == initialLocation.Y) this.Size = initialSize; //posição inicial, reset do tamanho
+        if (this.Location.Y == initialLocation.Y)
+        {
+            Height = initialHeight;
+            Width = initialWidth;
+        }//posição inicial, reset do tamanho
         else
         {
-            //float sizeModif = (float)Config.fatorAumento / 100;
-            //if (old.Y < Location.Y)
-            //{
-            //    Height = (int)Math.Ceiling(Height * (1 + sizeModif));
-            //    Width = (int)Math.Ceiling(Width * (1 + sizeModif));
-            //}
-            //else if (old.Y > Location.Y)
-            //{
-            //    Height = (int)Math.Floor(Height * (1 - sizeModif));
-            //    Width = (int)Math.Floor(Width * (1 - sizeModif));
-            //}
-
-            //apply iterative size calculation based on Y pos
-            int i;
-            float sizeModif = (float)Config.fatorAumento / 1000;
+            int newWidth = initialWidth;
+            int newHeight = initialHeight;
             if (this.Location.Y > initialLocation.Y)
             {
-                int newWidth = initialWidth;
-                int newHeight = initialHeight;
-                for (i = initialLocation.Y; i < Location.Y; i++)
-                {
-                    newWidth = (int)Math.Ceiling(newWidth * (1 + sizeModif));
-                    newHeight = (int)Math.Ceiling(newHeight * (1 + sizeModif));
-                }
-                Width = newWidth;
-                Height = newHeight;
+                newHeight = initialHeight + (Location.Y - initialLocation.Y) * Config.fatorAumento;
+                newWidth = (int)Math.Floor(initialWidth * ((double)newHeight / (double)initialHeight));
             }
             else if (this.Location.Y < initialLocation.Y)
             {
-                int newWidth = initialWidth;
-                int newHeight = initialHeight;
-                for (i = initialLocation.Y; i > Location.Y; i--)
-                {
-                    newWidth = (int)Math.Floor(newWidth * (1 - sizeModif));
-                    newHeight = (int)Math.Floor(newHeight * (1 - sizeModif));
-                }
-                Width = newWidth;
-                Height = newHeight;
+                newHeight = initialHeight - (initialLocation.Y - Location.Y) * Config.fatorAumento;
+                newWidth = (int)Math.Floor(initialWidth * ((double)newHeight / (double)initialHeight));
             }
+            Width = newWidth;
+            Height = newHeight;
         }
-        //this.Refresh();
-        //this.Invalidate();
-        old = this.Location;
-    }
-
-    public ContextMenu componentContxtMenu = new ContextMenu();
+    }//public void SizeMoveAblePicBox_Move(object sender, EventArgs e)
 
 
 
